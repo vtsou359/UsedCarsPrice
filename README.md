@@ -6,6 +6,8 @@ In this application, I will explore a dataset from kaggle. The original dataset 
 
 ## CRISP-DM Framework
 
+![Alt text](images/crisp.png)
+
 CRISP-DM stands for the Cross Industry Standard Process for Data Mining. It is a widely used and well-established methodology for guiding data mining and analytics projects. The CRISP-DM process model provides a structured approach to planning, executing, and evaluating data mining projects. It consists of six major phases:
 
 Business Understanding:
@@ -83,29 +85,41 @@ The dataset was cleaned and the features were transformed accordingly. The initi
 
 **Furthermore, from the data understanding phase we concluded the following point:**
 - I removed the target variable's outliers, duplicates, nulls and non-significant features such as VIN. 
-- Although I did not drop the region, state, model and paint_color variables, they will not be used in the data preparation and modelling phase.
+- Although I did not drop the region, state, model and paint_color variables, they did not used in the data preparation and modelling phase.
 - I kept the data between the years 1908 and 2021.
-- The dataset was split into three segments with different behaviours for the price trend per year. The **first** is the **newer generation cars** (year >= 1998), where the newer cars have higher prices. The **second** is the **old cars** (year >= 1969 and year < 1998), where the newer cars have lower prices. The **third** is the **antiques** (year < 1969), where price vs year has no distinctive trend.
+- The dataset was split into three segments with different behaviours for the price trend per year. The **first** was the **newer generation cars** (year >= 1998), where the newer cars have higher prices. The **second** was the **old cars** (year >= 1969 and year < 1998), where the newer cars have lower prices. The **third** was the **antiques** (year < 1969), where price vs year has no distinctive trend.
 - The **odometer** variable is **correlated / anti-correlated** with the variable **year**. 
-- For **old and new-generation cars**, I should **only keep either the year or the odometer** in my modelling phase. In this way, I will mitigate the risk of multicollinearity.
-- For antiques, I should **only use the odometer**.
-- I should **log-transform** the **target variable (price)**.
-- The variable/ feature **manufacturer_cluster** was created based on the median price per manufacturer. Three clusters/levels were created and possibly will be used to reduce modelling complexity. On the other hand, I should consider **involving** the initial **manufacturer** variable as it may be **more valuable**.
-- I will keep the **condition** variable **only for old cars and antiques**.
-- I will keep the **type** variable **only for old and new generation cars**.
-- I will keep the **drive** variable **only for old and new generation cars**.
-- **Fuel** and **cylinders** will be used experimentally in the modelling phase. I **will not include fuel** in the **antiques**' modelling.
+- For **old and new-generation cars**, I **only kept either the year or the odometer** in my modelling phase. In this way, I mitigated the risk of multicollinearity.
+- For antiques, I **only used the odometer**.
+- I  **log-transformed** the **target variable (price)**.
+- The variable/ feature **manufacturer_cluster** was created based on the median price per manufacturer. Three clusters/levels were created and possibly were used to reduce modelling complexity. Also, I considered **involving** the initial **manufacturer** variable as it was **more valuable**.
+- I kept the **condition** variable **only for old cars and antiques**.
+- I kept the **type** variable **only for old and new generation cars**.
+- I kept the **drive** variable **only for old and new generation cars**.
+- **Fuel** and **cylinders** were used experimentally in the modelling phase. I **did not include fuel** in the **antiques**' modelling.
 
+![Alt text](images/output3.png)
 
-plots plots plots
-...
+![Alt text](images/output4.png)
+
+![Alt text](images/output4_2.png)
+
+![Alt text](images/output5.png)
+
+![Alt text](images/output6.png)
+
+![Alt text](images/output7.png)
+
+![Alt text](images/output8.png)
 
 **In the data preparation phase:**
 - I dropped the columns region, model, paint_color, state as I did not use them in my modelling phase.
 - I created a column transformer function which I used on the modelling phase.
 - Also, I created three variations of TransformedTargetRegressors (Ridge, Lasso, ElasticNet). All the variations log-transform my target variable (price)
 
+![Alt text](images/output0.png)
 
+![Alt text](images/output1.png)
 
 
 
@@ -142,7 +156,7 @@ Antiques group:
 
 
 
-**In the Evaluation phase, I calculated the R-squared score, the MSE and the RMSE of the models I created above. I chose the best models base on the R2 score** 
+**In the Evaluation phase, I calculated the R-squared score, the MSE and the RMSE of the models I created above. I chose the best models based on their R2 score** 
 
 **More specifically:**
 
@@ -153,10 +167,11 @@ Antiques group:
 Later in the deployment phase, I  calculated the **Adjusted R-squared Score**. More specifically, adjusted R-squared is calculated by dividing the residual mean square error by the total mean square error (which is the sample variance of the target variable). The result is then subtracted from 1. Adjusted R-squared is always less than or equal to R-squared. Lastly, Adjusted R-squared might decrease if a specific effect does not improve the model.
 
 
-plots plots plots
-...
+![Alt text](images/output9.png)
 
+![Alt text](images/output10.png)
 
+![Alt text](images/output11.png)
 
 
 
@@ -187,10 +202,11 @@ Ridge_poly_a_v2:
 - Train Adjusted R2: 0.315
 - Test Adjusted R2: 0.316
 
+![Alt text](images/ri_poly_n.png)
 
+![Alt text](images/ri_poly_0_v3.png)
 
-model screenshots screenshots
-...
+![Alt text](images/ri_poly_a_v2.png)
 
 
 ## Insights to report:
@@ -202,10 +218,17 @@ model screenshots screenshots
 - The most crucial variable that drives the **antiques**' sale price is the **condition** of the car followed by the number of **cylinders**, the **manufacturer** and the **odometer** value of the car. For a fair condition, the price is reduced, while for a new and like-new condition, the price is higher. In addition, luxury and premium European brands like Porsche, Mercedes-Benz, Jaguar and Ferrari positively contribute to the price of a car. It is also interesting that if a vehicle is a Toyota, the price is generally higher than that of a Volvo or Volkswagen. Moreover, the cars made by US brands tend to lose their value as their prices are usually lower than those of European (or Asian) brands. Furthermore, engines with more cylinders (8 and above) make the car pricier. Cars with 4 or 6 cylinders tend to have lower prices.
 
 
-plots plots plots
-...
+![Alt text](images/output12.png)
 
+![Alt text](images/output15.png)
 
+![Alt text](images/output13.png)
+
+![Alt text](images/output16.png)
+
+![Alt text](images/output14.png)
+
+![Alt text](images/output17.png)
 
 ## Recommendations:
 
